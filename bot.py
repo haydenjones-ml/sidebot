@@ -16,7 +16,7 @@ app_id, discord_token, public_key = load_api_keys()
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="/", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 #INSERT COMMAND FUNCTIONALITY BELOW HERE
 #TODO: CREATE BETTING COMMANDS, LEDGER COMMANDS ON PER-SERVER BASIS, STATS PAGE OPT.
