@@ -7,7 +7,7 @@ from discord.ext import commands
 # Load API keys as arrays, grab each "value" as its key param
 
 def load_api_keys():
-    config_path = 'token.json'
+    config_path = 'token_bank.json'
     with open(config_path, 'r') as file:
         config = json.load(file)
         return config["APP_ID"], config["DISCORD_TOKEN"], config["PUBLIC_KEY"]
