@@ -16,7 +16,7 @@ except Exception as e:
     raise
 
 def gen_bet_id() -> int:
-    """Generate a new unique bet ID."""
+    #Try to create position-based bet id, throw error if id already exists
     try:
         if len(ledger) == 0:
             return 1
@@ -28,7 +28,7 @@ def gen_bet_id() -> int:
         raise
 
 def add_sidebet(server_id: int, bettor1: int, bettor2: int, amount: int):
-    """Insert a new bet into the ledger."""
+    #Create new bet within ledger, ALL COMMANDS LATER SHOULD FOLLOW SIMILAR FORMAT
     try:
         bet_id = gen_bet_id()
         ledger.insert({
@@ -49,7 +49,7 @@ def add_sidebet(server_id: int, bettor1: int, bettor2: int, amount: int):
         raise
 
 def settle(bet_id: int, winner: int):
-    """Mark a bet as settled."""
+    #Changes open status and allows it to be searchable + added to stats
     try:
         Bet = Query()
         ledger.update({
@@ -63,17 +63,15 @@ def settle(bet_id: int, winner: int):
         raise
 
 def get_open_bets(server_id: int):
-    """Return all open bets for a server."""
     Bet = Query()
     return ledger.search((Bet.Open == True) & (Bet.server_id == server_id))
 
 def get_all_bets(server_id: int):
-    """Return all bets for a server."""
     Bet = Query()
     return ledger.search(Bet.server_id == server_id)
 
 def get_user_stats(user_id):
-    """Calculate user betting statistics."""
+    # User bet statistics calculations (Stats will show up for ALL SERVERS)
     total = wins = amount_won = amount_lost = 0
     for bet in ledger.all():
         involved = user_id in [bet["bettor_1_id"], bet["bettor_2_id"]]
