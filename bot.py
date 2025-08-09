@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 MY_GUILD = discord.Object(id=DEV_GUILD_ID)  # dev guild object
 
-# Load commands before bot connects
+# Import and setup commands
 from sidebet import setup as sidebet_setup
 from stats import setup as stats_setup
 
@@ -27,8 +27,8 @@ stats_setup(bot, MY_GUILD)
 
 @bot.event
 async def on_ready():
-    synced = await bot.tree.sync(guild=MY_GUILD)  # always sync to dev guild for instant updates
+    synced = await bot.tree.sync(guild=MY_GUILD)  # sync commands to dev guild for fast update
     print(f"Synced {len(synced)} commands to dev guild {DEV_GUILD_ID}")
-    print(f"Loaded commands: {[cmd.name for cmd in bot.tree.get_commands()]}")
+    print(f"Loaded guild commands: {[cmd.name for cmd in bot.tree.get_commands(guild=MY_GUILD)]}")
 
 bot.run(discord_token)

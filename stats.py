@@ -4,7 +4,7 @@ from ledger import get_user_stats
 
 def setup(bot, guild=None):
 
-    @bot.tree.command(name="stats", description="Get betting stats for a user")
+    @bot.tree.command(name="stats", description="Get betting stats for a user", guild=guild)
     @app_commands.describe(user="User to get stats for (default: yourself)")
     async def stats(interaction: discord.Interaction, user: discord.Member = None):
         user = user or interaction.user
