@@ -1,33 +1,34 @@
 import discord
 import json
-import os
-
 from discord.ext import commands
 
-# Load API keys as arrays, grab each "value" as its key param
+DEV_GUILD_ID = 1403656083314184292  # Your test server
 
 def load_api_keys():
-    config_path = 'token_bank.json'
-    with open(config_path, 'r') as file:
+    with open('token_bank.json', 'r') as file:
         config = json.load(file)
         return config["APP_ID"], config["DISCORD_TOKEN"], config["PUBLIC_KEY"]
-    
+
 app_id, discord_token, public_key = load_api_keys()
 
 intents = discord.Intents.default()
 intents.message_content = True
+
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-#INSERT COMMAND FUNCTIONALITY BELOW HERE
-#TODO: CREATE BETTING COMMANDS, LEDGER COMMANDS ON PER-SERVER BASIS, STATS PAGE OPT.
+MY_GUILD = discord.Object(id=DEV_GUILD_ID)  # dev guild object
 
+# Load commands before bot connects
 from sidebet import setup as sidebet_setup
 from stats import setup as stats_setup
 
+sidebet_setup(bot, MY_GUILD)
+stats_setup(bot, MY_GUILD)
+
 @bot.event
 async def on_ready():
-    print(f"Bot online: {bot.user}")
+    synced = await bot.tree.sync(guild=MY_GUILD)  # always sync to dev guild for instant updates
+    print(f"Synced {len(synced)} commands to dev guild {DEV_GUILD_ID}")
+    print(f"Loaded commands: {[cmd.name for cmd in bot.tree.get_commands()]}")
 
-sidebet_setup(bot)
-stats_setup(bot)
 bot.run(discord_token)
