@@ -80,6 +80,13 @@ def get_all_bets(server_id: int):
     Bet = Query()
     return ledger.search(Bet.server_id == server_id)
 
+def get_my_bets(server_id: int, user_id: int):
+    Bet = Query()
+    return ledger.search(
+        (Bet.server_id == server_id) & ((Bet.bettor_1_id == user_id) | (Bet.bettor_2_id == user_id))
+        )
+
+
 def get_user_stats(user_id):
     # User bet statistics calculations (Stats will show up for ALL SERVERS)
     total = wins = amount_won = amount_lost = 0

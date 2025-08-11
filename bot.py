@@ -27,6 +27,7 @@ stats_setup(bot, MY_GUILD)
 
 @bot.event
 async def on_ready():
+    #bot.tree.clear_commands(guild=MY_GUILD)
     await bot.tree.sync(guild=MY_GUILD)
     print(f"Synced commands to dev guild {DEV_GUILD_ID}")
     print(f"Loaded guild commands: {[cmd.name for cmd in bot.tree.get_commands(guild=MY_GUILD)]}")
