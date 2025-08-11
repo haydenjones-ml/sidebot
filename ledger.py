@@ -1,14 +1,24 @@
 from tinydb import TinyDB, Query
+from tinydb.storages import JSONStorage
 from datetime import datetime
 from pathlib import Path
 import traceback
+import json
 
-# Ensure data directory exists
+#Ensure data directory exists
 db_path = Path("ledger_db.json")
 db_path.parent.mkdir(parents=True, exist_ok=True)
 
+#Create class to utilize good-looking JSON
+class JSONCleanup(JSONStorage):
+    def write(self, data):
+        self._handle.seek(0)
+        json.dump(data, self._handle, indent=5, ensure_ascii=False)
+        self._handle.truncate()
+        self._handle.flush()
+
 try:
-    database = TinyDB(db_path)
+    database = TinyDB(db_path, storage=JSONCleanup)
     ledger = database.table("bets")
 except Exception as e:
     print(f"❌ Failed to open TinyDB: {e}")
