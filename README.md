@@ -21,6 +21,12 @@ Template:
 }
 ```
 - Click run, and enjoy!
+
+## Commands
+- **/bet** - initiates a bet between you and another user of the discord; requires mentioning/the discord id of both bettors and the total bet amount
+- **/settle_bet** - marks the bet with a definitive winner! Meant to be used as a way to show that a bet is finished or paid
+- **/ledger** - lets you view the most recent bets within your server
+- **/view_my_stats** - lets you view your own recent bets, without the clutter from mentioning others
 ## Other notes
 - If you want any other commands to be implemented, please feel free to contribute via pull requests!
 - If you cannot write code, be sure to open up an [issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue) with a description describing what you would like!
