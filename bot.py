@@ -2,7 +2,7 @@ import discord
 import json
 from discord.ext import commands
 
-#DEV_GUILD_ID = 1403656083314184292  # Your test server
+#DEV_GUILD_ID = <- REFACTORED TO VARIABLES JSON FILE
 
 def load_api_keys():
     with open('token_bank.json', 'r') as file:
@@ -27,7 +27,7 @@ stats_setup(bot, MY_GUILD)
 
 @bot.event
 async def on_ready():
-    #bot.tree.clear_commands(guild=MY_GUILD)
+    # bot.tree.clear_commands(guild=MY_GUILD) <- uncomment to restart upon adding new commands
     await bot.tree.sync(guild=MY_GUILD)
     print(f"Synced commands to dev guild {DEV_GUILD_ID}")
     print(f"Loaded guild commands: {[cmd.name for cmd in bot.tree.get_commands(guild=MY_GUILD)]}")

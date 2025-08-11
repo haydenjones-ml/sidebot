@@ -5,7 +5,7 @@ from ledger import add_sidebet, settle, get_all_bets, get_my_bets
 PAGE_SIZE = 5
 
 def setup(bot, guild=None):
-    #CREATED CLASS FOR LEDGER / (EVENTUAL) ALL BET PAGINATION
+    # CREATED CLASS FOR LEDGER / (EVENTUAL) ALL BET PAGINATION
     class BetPagination(discord.ui.View):
         def __init__(self, bets, user_id):
             super().__init__(timeout=300) # Need timeout for pagination requests (after 5 min, stop accepting interaction)
