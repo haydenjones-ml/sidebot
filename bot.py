@@ -27,8 +27,9 @@ stats_setup(bot, MY_GUILD)
 
 @bot.event
 async def on_ready():
-    synced = await bot.tree.sync(guild=MY_GUILD)  # sync commands to dev guild for fast update
-    print(f"Synced {len(synced)} commands to dev guild {DEV_GUILD_ID}")
+    await bot.tree.sync(guild=MY_GUILD)
+    print(f"Synced commands to dev guild {DEV_GUILD_ID}")
     print(f"Loaded guild commands: {[cmd.name for cmd in bot.tree.get_commands(guild=MY_GUILD)]}")
+
 
 bot.run(discord_token)

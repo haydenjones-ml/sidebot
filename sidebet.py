@@ -16,7 +16,7 @@ def setup(bot, guild=None):
         await interaction.response.send_message(f"Bet {bet_id} settled! Congrats to {winner.mention}")
 
     @bot.tree.command(name="ledger", description="Show recent bets in this server", guild=guild)
-    async def ledger_cmd(interaction: discord.Interaction):
+    async def ledger(interaction: discord.Interaction):
         bets = get_all_bets(interaction.guild.id)
         if not bets:
             await interaction.response.send_message("The ledger is empty! Place your bets.")
