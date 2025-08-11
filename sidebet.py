@@ -84,13 +84,5 @@ def setup(bot, guild=None):
             await interaction.response.send_message("You currently have no bets! Place bets to see bet data.")
             return
         
-
-        response_lines = []
-        for bet in bets[-5:]:
-            status = "Open" if bet["Open"] else "Settled"
-            winner_str = f", Winner: <@{bet['winner']}>" if bet["winner"] else ""
-            line = f"#{bet['bet_id']}: <@{bet['bettor_1_id']}> vs <@{bet['bettor_2_id']}> for ${bet['amount']} – Status: {status}{winner_str}"
-            response_lines.append(line)
-
-        await interaction.response.send_message(f"\n".join(response_lines))
-
+        view = BetPagination(bets, interaction.user.id)
+        await interaction.response.send_message(content=view.format_page(), view=view)
