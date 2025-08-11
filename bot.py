@@ -2,14 +2,14 @@ import discord
 import json
 from discord.ext import commands
 
-DEV_GUILD_ID = 1403656083314184292  # Your test server
+#DEV_GUILD_ID = 1403656083314184292  # Your test server
 
 def load_api_keys():
     with open('token_bank.json', 'r') as file:
         config = json.load(file)
-        return config["APP_ID"], config["DISCORD_TOKEN"], config["PUBLIC_KEY"]
+        return config["APP_ID"], config["DISCORD_TOKEN"], config["PUBLIC_KEY"], config["SERVER_ID"]
 
-app_id, discord_token, public_key = load_api_keys()
+app_id, discord_token, public_key, DEV_GUILD_ID = load_api_keys()
 
 intents = discord.Intents.default()
 intents.message_content = True
